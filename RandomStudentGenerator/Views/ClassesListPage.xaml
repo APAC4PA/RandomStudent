@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:RandomStudentGenerator.ViewModels"
+             x:Class="RandomStudentGenerator.Views.ClassesListPage"
+             Title="ClassesListPage">
+    <Shell.TitleView>
+        <Label Text="Classes" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+    </Shell.TitleView>
+    <ContentPage.Resources>
+        <StyleSheet Source="/Resources/Styles/style.css" />
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <viewModels:ClassesListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+        Text="Add"
+        Command="{Binding NewClassCommand}"
+        IconImageSource="{FontImage Glyph='+', Size=22, Color=Coral}" />
+        <ToolbarItem
+        Text="Set a lucky number"
+        Command="{Binding SetLuckyNumberCommand}"
+        IconImageSource="{FontImage Glyph='$', Size=22, Color=Coral}" />
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout>
+        <Label Text="{Binding School.LuckyNumber, StringFormat='Szczęśliwy numerek: {0}'}" StyleId="page-title" HorizontalOptions="Center"/>
+        <Grid RowDefinitions="Auto, *">
+            <CollectionView
+                x:Name="ClassCollectionView"
+                Grid.Row="1"
+                WidthRequest="1350"
+                StyleClass="collection-view"
+                ItemsSource="{Binding AllClasses}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedClass, Mode=TwoWay}"
+                SelectionChangedCommand="{Binding SelectClass}"
+                SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference ClassCollectionView}}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="5" HorizontalItemSpacing="6" VerticalItemSpacing="6"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            StyleClass="itemFrame"
+                            CornerRadius="12"
+                            BorderColor="#A984A1">
+                            <VerticalStackLayout Padding="10" Spacing="6" HorizontalOptions="Center">
+                                <Label Text="{Binding Name}" FontSize="16" 
+                                    HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                                    <!--<Button Command="{Binding BindingContext.ExportClassCommand, Source={x:Reference ClassCollectionView}}"
+                                    CommandParameter="{Binding .}"
+                                    Text="Export"/>-->
+                                    <Button Command="{Binding BindingContext.DeleteClassCommand, Source={x:Reference ClassCollectionView}}"
+                                    CommandParameter="{Binding .}"
+                                    Text="Delete"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

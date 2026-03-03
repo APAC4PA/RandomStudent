@@ -1,0 +1,73 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:viewModels="clr-namespace:RandomStudentGenerator.ViewModels"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RandomStudentGenerator.Views.ClassPage"
+             Title="ClassPage">
+    <ContentPage.BindingContext>
+        <viewModels:ClassViewModel />
+    </ContentPage.BindingContext>
+    <Shell.TitleView>
+        <Label Text="Class Page" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+    </Shell.TitleView>
+    <ContentPage.Resources>
+        <StyleSheet Source="/Resources/Styles/style.css" />
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+        Text="Add"
+        Command="{Binding AddStudentCommand}"
+        IconImageSource="{FontImage Glyph='+', Size=22, Color=Coral}" />
+        <ToolbarItem
+        Text="Pick a student"
+        Command="{Binding PickStudentCommand}"
+        IconImageSource="{FontImage Glyph='@', Size=22, Color=Coral}" />
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        <CollectionView
+            x:Name="StudentCollectionView"
+            ItemsSource="{Binding Students}">
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="4"  HorizontalItemSpacing="6" VerticalItemSpacing="6"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        StyleClass="itemFrame"
+                        CornerRadius="12"
+                        BorderColor="#A984A1">
+                        <VerticalStackLayout Padding="10" Spacing="6">
+                            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                                <Label Text="{Binding Name}" FontSize="16" HorizontalOptions="Center"/>
+                                <Label Text="{Binding Lastname}" FontSize="16" HorizontalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                                <Button Command="{Binding BindingContext.ChangePresenceCommand, Source={x:Reference StudentCollectionView}}"
+                                CommandParameter="{Binding .}">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsPresent}" Value="True">
+                                            <Setter Property="Text" Value="Obecny" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsPresent}" Value="False">
+                                            <Setter Property="Text" Value="Nieobecny" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button Command="{Binding BindingContext.EditStudentCommand, Source={x:Reference StudentCollectionView}}"
+                                CommandParameter="{Binding .}"
+                                Text="Edytuj" />
+                                <Button Command="{Binding BindingContext.DeleteStudentCommand, Source={x:Reference StudentCollectionView}}"
+                                CommandParameter="{Binding .}"
+                                Text="Usun" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>
