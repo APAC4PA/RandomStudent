@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using RandomStudentGenerator.Services;
 
 namespace RandomStudentGenerator.ViewModels
 {
@@ -18,7 +19,6 @@ namespace RandomStudentGenerator.ViewModels
         public ICommand SelectClass { get; }
         public ICommand SetLuckyNumberCommand { get; }
         public ICommand DeleteClassCommand { get; }
-        public ICommand ExportClassCommand { get; }
 
         public ObservableCollection<Models.Class> AllClasses { get; }
         private Models.Class? _selectedClass;
@@ -50,7 +50,6 @@ namespace RandomStudentGenerator.ViewModels
             SelectClass = new AsyncRelayCommand<Class?>(SelectClassAsync);
             SetLuckyNumberCommand = new AsyncRelayCommand(SetLuckyNumber);
             DeleteClassCommand = new AsyncRelayCommand<Class?>(DeleteClassAsync);
-            ExportClassCommand = new AsyncRelayCommand<Class?>(ExportClassAsync);
         }
 
         private async Task AddNewClass()
@@ -63,7 +62,7 @@ namespace RandomStudentGenerator.ViewModels
                 return;
 
             var newClass = new Models.Class { Name = className };
-            newClass.CreateNewClass();
+            FileService.CreateNewClass(newClass);
 
             AllClasses.Add(newClass);
         }
@@ -135,20 +134,9 @@ namespace RandomStudentGenerator.ViewModels
             bool confirm = await page.DisplayAlert("Delete class", $"Are you sure you want to delete the class '{list.Name}'?", "Yes", "No");
             if (confirm)
             {
-                list.DeleteClass();
+                FileService.DeleteClass(list);
                 AllClasses.Remove(list);
             }
-        }
-
-        private async Task ExportClassAsync(Class? list)
-        {
-            if (list == null) return;
-            var page = App.Current?.MainPage;
-            if (page == null) return;
-            string fileName = $"{list.Name}_export.txt";
-            string exportPath = Path.Combine(FileSystem.AppDataDirectory, "RandomStudentGenerator", fileName);
-            list.ExportClass(exportPath);
-            await page.DisplayAlert("Export class", $"Class '{list.Name}' has been exported to: {exportPath}", "OK");
         }
     }
 }

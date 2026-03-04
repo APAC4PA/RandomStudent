@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RandomStudentGenerator.Models;
+using RandomStudentGenerator.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -57,7 +58,7 @@ namespace RandomStudentGenerator.ViewModels
                 var loaded = Class.Load(listName);
 
                 Class = loaded;
-                Class.LoadRecentlyAskedStudents(); 
+                FileService.LoadRecentlyAskedStudents(Class); 
             }
             if (query.TryGetValue("luckyNumber", out var luckyNumberValue))
             {
@@ -73,7 +74,7 @@ namespace RandomStudentGenerator.ViewModels
             string studentName = await page.DisplayPromptAsync("New student", "Enter name of the student: ");
             if (string.IsNullOrWhiteSpace(studentName))
                 return;
-            if (!studentName.Contains(' ') || studentName.Any(ch => !char.IsLetterOrDigit(ch)))
+            if (!studentName.Contains(' '))
             {
                 await page.DisplayAlert("Invalid name", "Please enter valid name and lastname for student", "OK");
                 return;
@@ -107,14 +108,14 @@ namespace RandomStudentGenerator.ViewModels
                 Lastname = newStudentInfo.Split(' ')[1],
                 IsPresent = student.IsPresent
             };
-            Class.EditStudent(student, editedStudent, Class.Name);
+            FileService.EditStudent(student, editedStudent, Class);
         }
         private async Task DeleteStudent(Student student)
         {
             var page = App.Current?.MainPage;
             bool confirm = await page.DisplayAlert("Delete student", $"Are you sure you want to delete {student.Name} {student.Lastname}?", "Yes", "No");
             if (confirm)
-                Class.DeleteStudent(student, Class.Name);
+                FileService.DeleteStudent(student, Class);
         }
 
         private async Task PickRandomStudent()
@@ -146,7 +147,7 @@ namespace RandomStudentGenerator.ViewModels
                 Trace.WriteLine($"Randomly picked student: {randomStudent.Name} {randomStudent.Lastname}");
             }
             while (Class.RecentlyAskedStudents.Contains(randomStudent));
-            Class.AddToRecentlyAskedStudents(randomStudent);
+            FileService.AddToRecentlyAskedStudents(randomStudent, Class);
             await page.DisplayAlert("Random student", $"The randomly picked student is: {randomStudent.Name} {randomStudent.Lastname}", "OK");
         }
     }
