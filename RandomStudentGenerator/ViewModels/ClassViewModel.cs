@@ -55,7 +55,7 @@ namespace RandomStudentGenerator.ViewModels
             {
                 string listName = value as string;
 
-                var loaded = Class.Load(listName);
+                var loaded = FileService.Load(listName);
 
                 Class = loaded;
                 FileService.LoadRecentlyAskedStudents(Class); 
@@ -82,13 +82,13 @@ namespace RandomStudentGenerator.ViewModels
             string name = studentName.Split(' ')[0];
             string lastname = studentName.Split(' ')[1];
             var newStudent = new Models.Student { Name = name, Lastname = lastname };
-            Class.AddStudent(newStudent);
+            FileService.AddStudent(newStudent, Class);
         }
 
         private async Task ChangeStudentPresence(Student student)
         {
             if (student == null) return;
-            student.ChangePresence();
+            FileService.ChangePresence(student);
             OnPropertyChanged(nameof(Students));
         }
         private async Task EditStudent(Student student)

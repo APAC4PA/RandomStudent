@@ -44,8 +44,8 @@ namespace RandomStudentGenerator.ViewModels
         public ClassesListViewModel()
         {
             School = new Models.School();
-            School.GetLuckyNumber();
-            AllClasses = new ObservableCollection<Models.Class>(Models.Class.LoadAll());
+            FileService.GetLuckyNumber(School);
+            AllClasses = new ObservableCollection<Models.Class>(FileService.LoadAll());
             NewClassCommand = new AsyncRelayCommand(AddNewClass);
             SelectClass = new AsyncRelayCommand<Class?>(SelectClassAsync);
             SetLuckyNumberCommand = new AsyncRelayCommand(SetLuckyNumber);
@@ -78,7 +78,7 @@ namespace RandomStudentGenerator.ViewModels
             int maxCount = 0;
             foreach (var c in AllClasses)
             {
-                var classInfo = Class.Load(c.Name);
+                var classInfo = FileService.Load(c.Name);
                 if (classInfo.Students.Count > maxCount)
                 {
                     maxCount = classInfo.Students.Count;
@@ -123,7 +123,7 @@ namespace RandomStudentGenerator.ViewModels
                 }
             }
             else return;
-            School.SaveLuckyNumber();
+            FileService.SaveLuckyNumber(School);
         }
 
         private async Task DeleteClassAsync(Class? list)

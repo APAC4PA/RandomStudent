@@ -3,28 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:RandomStudentGenerator.ViewModels"
              x:Class="RandomStudentGenerator.Views.ClassesListPage"
-             Title="ClassesListPage">
-    <Shell.TitleView>
-        <Label Text="Classes" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
-    </Shell.TitleView>
+             Title="Classes">
     <ContentPage.Resources>
         <StyleSheet Source="/Resources/Styles/style.css" />
     </ContentPage.Resources>
     <ContentPage.BindingContext>
         <viewModels:ClassesListViewModel />
     </ContentPage.BindingContext>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem
-        Text="Add"
-        Command="{Binding NewClassCommand}"
-        IconImageSource="{FontImage Glyph='+', Size=22, Color=Coral}" />
-        <ToolbarItem
-        Text="Set a lucky number"
-        Command="{Binding SetLuckyNumberCommand}"
-        IconImageSource="{FontImage Glyph='$', Size=22, Color=Coral}" />
-    </ContentPage.ToolbarItems>
     <VerticalStackLayout>
-        <Label Text="{Binding School.LuckyNumber, StringFormat='Szczęśliwy numerek: {0}'}" StyleId="page-title" HorizontalOptions="Center"/>
+        <Label Text="{Binding School.LuckyNumber, StringFormat='Szczęśliwy numerek: {0}'}" StyleId="pageTitle" HorizontalOptions="Center"/>
+        <HorizontalStackLayout HorizontalOptions="Center" StyleId="funcButtons">
+            <Button Text="Add" Command="{Binding NewClassCommand}"/>
+            <Button Text="Set a lucky number" Command="{Binding SetLuckyNumberCommand}"/>
+        </HorizontalStackLayout>
         <Grid RowDefinitions="Auto, *">
             <CollectionView
                 x:Name="ClassCollectionView"
@@ -43,15 +34,11 @@
                     <DataTemplate>
                         <Frame
                             StyleClass="itemFrame"
-                            CornerRadius="12"
                             BorderColor="#A984A1">
-                            <VerticalStackLayout Padding="10" Spacing="6" HorizontalOptions="Center">
-                                <Label Text="{Binding Name}" FontSize="16" 
+                            <VerticalStackLayout HorizontalOptions="Center">
+                                <Label Text="{Binding Name}"
                                     HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
-                                    <!--<Button Command="{Binding BindingContext.ExportClassCommand, Source={x:Reference ClassCollectionView}}"
-                                    CommandParameter="{Binding .}"
-                                    Text="Export"/>-->
+                                <HorizontalStackLayout HorizontalOptions="Center">
                                     <Button Command="{Binding BindingContext.DeleteClassCommand, Source={x:Reference ClassCollectionView}}"
                                     CommandParameter="{Binding .}"
                                     Text="Delete"/>

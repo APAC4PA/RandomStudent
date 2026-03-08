@@ -1,19 +1,51 @@
 ^ContentPage {
     background-color: #52796f;
+    -maui-shell-background: #2f3e46;
+    -maui-shell-title: white;
 }
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .itemFrame {
     padding: 10;
     background-color: #84a98c;
+    border-radius: 12;
 }
-#page-title {
-    font-size: 22;
+
+label {
+    font-size: 18;
+    color: ghostwhite;
+}
+
+#pageTitle {
+    font-size: 26;
     color: #cad2c5;
     margin: 0, 10;
     font-weight: bold;
 }
 
-button {
+.itemFrame > VerticalStackLayout > HorizontalStackLayout > button {
     background-color: #cad2c5;
     color: #52796f;
     font-weight: bold;
+}
+
+VerticalStackLayout{
+    padding: 10;
+    -maui-spacing: 10;
+}
+
+HorizontalStackLayout {
+    -maui-spacing: 6;
+}
+
+#funcButtons > button {
+    background-color: #ec5f5f;
+    color: white;
+    font-weight: bold;
+    font-size: 18;
+    padding: 12,8;
+    border-radius: 12;
 }

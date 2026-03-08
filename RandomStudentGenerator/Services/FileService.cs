@@ -1,4 +1,7 @@
 ﻿using RandomStudentGenerator.Models;
+using System.Xml.Linq;
+
+using RandomStudentGenerator.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -156,6 +159,120 @@ namespace RandomStudentGenerator.Services
                 throw new Exception("Nie znaleziono klasy w pliku.");
             }
             lines.RemoveRange(startIndex, endIndex - startIndex + 1);
+            File.WriteAllLines(path, lines);
+        }
+
+        static public void ChangePresence(Student s)
+        {
+            s.IsPresent = !s.IsPresent;
+
+            var lines = File.ReadAllLines(path).ToList();
+            int insertIndex = lines.FindIndex(line => line.Contains($"{s.Name} {s.Lastname}"));
+
+            if (insertIndex == -1)
+                throw new Exception("Nie znaleziono studenta w pliku.");
+
+            lines[insertIndex] = $"{s.Name} {s.Lastname} {s.IsPresent}";
+            File.WriteAllLines(path, lines);
+        }
+
+        static public void SaveLuckyNumber(School sc)
+        {
+            var lines = File.ReadAllLines(path).ToList();
+            if (lines[0].Count(x => x == '^') == 2)
+            {
+                lines[0] = "^" + sc.LuckyNumber.ToString() + "^";
+            }
+            else
+            {
+                lines.Insert(0, "^" + sc.LuckyNumber.ToString() + "^");
+            }
+            File.WriteAllLines(path, lines);
+        }
+        static public void GetLuckyNumber(School sc)
+        {
+            if (!File.Exists(path))
+                return;
+            var lines = File.ReadAllLines(path).ToList();
+            if (lines.Count == 0)
+                return;
+            var firstLine = lines[0];
+            if (firstLine.Count(x => x == '^') == 2)
+            {
+                var numberStr = firstLine.Split('^')[1];
+                if (int.TryParse(numberStr, out int number))
+                {
+                    sc.LuckyNumber = number;
+                }
+            }
+        }
+
+        public static List<Class> LoadAll()
+        {
+            var classes = new List<Class>();
+            if (!File.Exists(path))
+                return classes;
+            var lines = File.ReadAllLines(path);
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Count(x => x == '*') == 2)
+                {
+                    classes.Add(new Class { Name = lines[i].Split('*')[1] });
+                }
+            }
+            return classes;
+        }
+        public static Class Load(string name)
+        {
+            int lineIndex = -1;
+            int startIndex = -1;
+            int endIndex = -1;
+            var classInfo = new Class { Name = name };
+            if (!File.Exists(path))
+                Trace.WriteLine("File not found: " + path);
+            var lines = File.ReadAllLines(path);
+            foreach (var line in lines)
+            {
+                lineIndex++;
+                if (line.Contains($"*{name}*"))
+                    startIndex = lineIndex;
+                if (line.Contains($"!{name}!"))
+                    endIndex = lineIndex;
+            }
+            for (int i = startIndex + 1; i < endIndex; i++)
+            {
+                if (!lines[i].Contains("#") && !lines[i].Contains("%"))
+                {
+                    var student = new Student()
+                    {
+                        Name = lines[i].Split(' ')[0],
+                        Lastname = lines[i].Split(' ')[1],
+                        IsPresent = bool.Parse(lines[i].Split(' ')[2])
+                    };
+                    classInfo.Students.Add(student);
+                }
+            }
+            return classInfo;
+        }
+
+        static public void AddStudent(Student s, Class c)
+        {
+            if (s == null) throw new ArgumentNullException(nameof(s));
+
+            s.ParentClass = c;
+            s.IsPresent = true;
+            c.Students.Add(s);
+
+            var lines = File.ReadAllLines(path).ToList();
+
+            int insertIndex = lines.FindIndex(line => line.Contains($"!{s.ParentClass.Name}!"));
+            if (insertIndex == -1)
+            {
+                throw new Exception("Nie znaleziono końca klasy w pliku.");
+            }
+
+            lines.Insert(insertIndex, $"{s.Name} {s.Lastname} {s.IsPresent}");
             File.WriteAllLines(path, lines);
         }
     }
