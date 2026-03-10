@@ -1,7 +1,20 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jajpl\\Documents\\GitHub\\RandomStudent\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\jajpl\\source\\repos\\RandomStudent\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E96DC869-190D-4847-8C95-49D4CB02253F}|RandomStudentGenerator\\RandomStudentGenerator.csproj|c:\\users\\jajpl\\source\\repos\\randomstudent\\randomstudentgenerator\\resources\\styles\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{E96DC869-190D-4847-8C95-49D4CB02253F}|RandomStudentGenerator\\RandomStudentGenerator.csproj|solutionrelative:randomstudentgenerator\\resources\\styles\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E96DC869-190D-4847-8C95-49D4CB02253F}|RandomStudentGenerator\\RandomStudentGenerator.csproj|c:\\users\\jajpl\\source\\repos\\randomstudent\\randomstudentgenerator\\views\\classeslistpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{E96DC869-190D-4847-8C95-49D4CB02253F}|RandomStudentGenerator\\RandomStudentGenerator.csproj|solutionrelative:randomstudentgenerator\\views\\classeslistpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E96DC869-190D-4847-8C95-49D4CB02253F}|RandomStudentGenerator\\RandomStudentGenerator.csproj|c:\\users\\jajpl\\source\\repos\\randomstudent\\randomstudentgenerator\\views\\classpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{E96DC869-190D-4847-8C95-49D4CB02253F}|RandomStudentGenerator\\RandomStudentGenerator.csproj|solutionrelative:randomstudentgenerator\\views\\classpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 20,
           "Children": [
             {
               "$type": "Bookmark",
@@ -82,6 +95,45 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClassPage.xaml",
+              "DocumentMoniker": "C:\\Users\\jajpl\\source\\repos\\RandomStudent\\RandomStudentGenerator\\Views\\ClassPage.xaml",
+              "RelativeDocumentMoniker": "RandomStudentGenerator\\Views\\ClassPage.xaml",
+              "ToolTip": "C:\\Users\\jajpl\\source\\repos\\RandomStudent\\RandomStudentGenerator\\Views\\ClassPage.xaml",
+              "RelativeToolTip": "RandomStudentGenerator\\Views\\ClassPage.xaml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAgwCkAAAB1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-10T18:16:24.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClassesListPage.xaml",
+              "DocumentMoniker": "C:\\Users\\jajpl\\source\\repos\\RandomStudent\\RandomStudentGenerator\\Views\\ClassesListPage.xaml",
+              "RelativeDocumentMoniker": "RandomStudentGenerator\\Views\\ClassesListPage.xaml",
+              "ToolTip": "C:\\Users\\jajpl\\source\\repos\\RandomStudent\\RandomStudentGenerator\\Views\\ClassesListPage.xaml",
+              "RelativeToolTip": "RandomStudentGenerator\\Views\\ClassesListPage.xaml",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAkwCcAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-10T18:16:12.548Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "style.css",
+              "DocumentMoniker": "C:\\Users\\jajpl\\source\\repos\\RandomStudent\\RandomStudentGenerator\\Resources\\Styles\\style.css",
+              "RelativeDocumentMoniker": "RandomStudentGenerator\\Resources\\Styles\\style.css",
+              "ToolTip": "C:\\Users\\jajpl\\source\\repos\\RandomStudent\\RandomStudentGenerator\\Resources\\Styles\\style.css",
+              "RelativeToolTip": "RandomStudentGenerator\\Resources\\Styles\\style.css",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-03-10T18:15:44.07Z",
+              "EditorCaption": ""
             }
           ]
         }

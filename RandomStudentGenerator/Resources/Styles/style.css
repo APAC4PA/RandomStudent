@@ -8,9 +8,12 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+^Frame {
+    background-color: #84a98c;
+}
+
 .itemFrame {
     padding: 10;
-    background-color: #84a98c;
     border-radius: 12;
 }
 
@@ -32,12 +35,12 @@ label {
     font-weight: bold;
 }
 
-VerticalStackLayout{
+^VerticalStackLayout{
     padding: 10;
     -maui-spacing: 10;
 }
 
-HorizontalStackLayout {
+^HorizontalStackLayout {
     -maui-spacing: 6;
 }
 
